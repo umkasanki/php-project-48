@@ -10,9 +10,29 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-echo 'what is your name?: ';
-$name = trim(fgets(STDIN));
+$doc = <<<DOC
+Generate diff
 
-$user = new Php\Package\User($name);
+Usage:
+  gendiff (-h|--help)
+  gendiff (-v|--version)
 
-var_dump($user);
+Options:
+  -h --help                     Show this screen
+  -v --version                  Show version
+DOC;
+
+$args = Docopt::handle($doc);
+
+if ($args['--help']) {
+    echo $doc;
+    exit(0);
+}
+
+if ($args['--version']) {
+    // Здесь установите версию вашей утилиты gendiff
+    echo "gendiff version 1.0.0";
+    exit(0);
+}
+
+
