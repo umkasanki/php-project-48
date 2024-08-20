@@ -1,5 +1,6 @@
 {
     "name": "hexlet/code",
+    "bin": ["bin/php-package"],
     "description": "hexlet php-package",
     "type": "library",
     "license": "MIT",
