@@ -42,17 +42,19 @@ function gendiff($filepath1, $filepath2) {
 
     // Сравните каждый ключ в обоих файлах
     foreach ($keys as $key) {
+        $file1Value = json_encode($file1Contents[$key]);
+        $file2Value = json_encode($file2Contents[$key]);
         if (!array_key_exists($key, $file1Contents)) {
-            $result .= "+ $key: {$file2Contents[$key]}\n"; // Ключ только во втором файле
+            $result .= "+ $key: $file2Value\n"; // Ключ только во втором файле
         } elseif (!array_key_exists($key, $file2Contents)) {
-            $result .= "- $key: {$file1Contents[$key]}\n"; // Ключ только в первом файле
-        } elseif ($file1Contents[$key] !== $file2Contents[$key]) {
+            $result .= "- $key: $file1Value\n"; // Ключ только в первом файле
+        } elseif ($file1Value !== $file2Value) {
             // Ключ есть в обоих файлах, но значения разные
-            $result .= "- $key: {$file1Contents[$key]}\n";
-            $result .= "+ $key: {$file2Contents[$key]}\n";
+            $result .= "- $key: $file1Value\n";
+            $result .= "+ $key: $file2Value\n";
         } else {
             // Ключ есть в обоих файлах и значения совпадают
-            $result .= "  $key: {$file1Contents[$key]}\n";
+            $result .= "  $key: $file1Value\n";
         }
     }
 
