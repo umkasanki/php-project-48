@@ -9,6 +9,26 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
+function checkFile($file)
+{
+    if (!file_exists($file)) {
+        echo "$file is not found.\n";
+        return false;
+    }
+
+    $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+    if ($fileExtension !== 'json') {
+        echo "The first file is not a JSON file.\n";
+        return false;
+    }
+
+    $fileContent = file_get_contents($file);
+    if (json_decode($fileContent) === null && json_last_error() !== JSON_ERROR_NONE) {
+        echo "The first file does not contain valid JSON.";
+        return false;
+    }
+}
+
 $doc = <<<DOC
 gendiff -h
 Generate diff
@@ -44,3 +64,6 @@ $secondFile = $args['<secondFile>'];
 
 echo "The values passed for <firstFile> is: $firstFile \n";
 echo "The values passed for <secondFile> is: $secondFile \n";
+
+checkFile($firstFile);
+checkFile($secondFile);
