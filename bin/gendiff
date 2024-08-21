@@ -29,6 +29,36 @@ function checkFile($file)
     }
 }
 
+function gendiff($filepath1, $filepath2) {
+    // Получите содержимое файлов и декодируйте его как JSON
+    $file1Contents = json_decode(file_get_contents($filepath1), true);
+    $file2Contents = json_decode(file_get_contents($filepath2), true);
+
+    // Получить объединенный список ключей из обоих файлов
+    $keys = array_keys(array_merge($file1Contents, $file2Contents));
+    sort($keys); // Сортируем ключи
+
+    $result = ""; // Результат
+
+    // Сравните каждый ключ в обоих файлах
+    foreach ($keys as $key) {
+        if (!array_key_exists($key, $file1Contents)) {
+            $result .= "+ $key: {$file2Contents[$key]}\n"; // Ключ только во втором файле
+        } elseif (!array_key_exists($key, $file2Contents)) {
+            $result .= "- $key: {$file1Contents[$key]}\n"; // Ключ только в первом файле
+        } elseif ($file1Contents[$key] !== $file2Contents[$key]) {
+            // Ключ есть в обоих файлах, но значения разные
+            $result .= "- $key: {$file1Contents[$key]}\n";
+            $result .= "+ $key: {$file2Contents[$key]}\n";
+        } else {
+            // Ключ есть в обоих файлах и значения совпадают
+            $result .= "  $key: {$file1Contents[$key]}\n";
+        }
+    }
+
+    return "{\n$result}\n";
+}
+
 $doc = <<<DOC
 gendiff -h
 Generate diff
@@ -67,3 +97,5 @@ echo "The values passed for <secondFile> is: $secondFile \n";
 
 checkFile($firstFile);
 checkFile($secondFile);
+
+print_r(gendiff($firstFile, $secondFile));
