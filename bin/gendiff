@@ -34,4 +34,7 @@ if ($args['--version']) {
     exit(0);
 }
 
-
+if ($args['--format']) {
+    $format = $args['--format'];
+    echo "The value passed for --format is: {$format} \n";
+}
