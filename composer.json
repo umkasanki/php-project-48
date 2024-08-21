@@ -16,7 +16,10 @@
     "autoload": {
         "psr-4": {
             "Php\\Package\\": "src"
-        }
+        },
+        "files": [
+            "src/Diff.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
