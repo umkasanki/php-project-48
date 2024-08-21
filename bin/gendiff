@@ -38,3 +38,9 @@ if ($args['--format']) {
     $format = $args['--format'];
     echo "The value passed for --format is: {$format} \n";
 }
+
+$firstFile = $args['<firstFile>'];
+$secondFile = $args['<secondFile>'];
+
+echo "The values passed for <firstFile> is: $firstFile \n";
+echo "The values passed for <secondFile> is: $secondFile \n";
