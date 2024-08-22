@@ -61,7 +61,8 @@ function isFileValid($file)
     return true;
 }
 
-function gendiff($filepath1, $filepath2) {
+function gendiff($filepath1, $filepath2)
+{
     if (!isFileValid($filepath1) || !isFileValid($filepath2)) {
         return false;
     }
