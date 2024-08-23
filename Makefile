@@ -1,5 +1,6 @@
 # Makefile
 setup:
+	composer --version
 	composer install
 	chmod +x bin/gendiff
 
