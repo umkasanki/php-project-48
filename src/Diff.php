@@ -79,8 +79,8 @@ function gendiff($filepath1, $filepath2)
 
     // Сравните каждый ключ в обоих файлах
     foreach ($keys as $key) {
-        $file1Value = json_encode($file1Contents[$key]);
-        $file2Value = json_encode($file2Contents[$key]);
+        $file1Value = array_key_exists($key, $file1Contents) ? json_encode($file1Contents[$key]) : '';
+        $file2Value = array_key_exists($key, $file2Contents) ? json_encode($file2Contents[$key]) : '';
         if (!array_key_exists($key, $file1Contents)) {
             $result .= "  + $key: $file2Value\n"; // Ключ только во втором файле
         } elseif (!array_key_exists($key, $file2Contents)) {
