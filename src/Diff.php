@@ -61,6 +61,15 @@ function isFileValid($file)
     return true;
 }
 
+function getValue($fileContent, $key): ?string
+{
+    $result = false;
+    if (array_key_exists($key, $fileContent)) {
+        $result = $fileContent[$key];
+    }
+    return var_export($result, true);
+}
+
 function gendiff($filepath1, $filepath2)
 {
     if (!isFileValid($filepath1) || !isFileValid($filepath2)) {
@@ -79,8 +88,9 @@ function gendiff($filepath1, $filepath2)
 
     // Сравните каждый ключ в обоих файлах
     foreach ($keys as $key) {
-        $file1Value = array_key_exists($key, $file1Contents) ? json_encode($file1Contents[$key]) : '';
-        $file2Value = array_key_exists($key, $file2Contents) ? json_encode($file2Contents[$key]) : '';
+        $file1Value = getValue($file1Contents, $key);
+        $file2Value = getValue($file2Contents, $key);
+
         if (!array_key_exists($key, $file1Contents)) {
             $result .= "  + $key: $file2Value\n"; // Ключ только во втором файле
         } elseif (!array_key_exists($key, $file2Contents)) {
@@ -95,5 +105,5 @@ function gendiff($filepath1, $filepath2)
         }
     }
 
-    return "{\n$result}\n";
+    return "{\n$result}";
 }
