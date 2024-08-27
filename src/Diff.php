@@ -67,7 +67,7 @@ function getValue($fileContent, $key): ?string
     if (array_key_exists($key, $fileContent)) {
         $result = $fileContent[$key];
     }
-    return var_export($result, true);
+    return is_bool($result) ? var_export($result, true) : $result;
 }
 
 function gendiff($filepath1, $filepath2)
