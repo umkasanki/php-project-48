@@ -14,7 +14,7 @@ lint-fix:
 	composer exec --verbose phpcbf -- --standard=PSR12 src bin
 
 test:
-	composer exec --verbose phpunit tests
+	XDEBUG_MODE=coverage composer exec --verbose phpunit tests -- --coverage-text
 
 #gendiff:
 #	./bin/gendiff
