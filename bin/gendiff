@@ -11,7 +11,11 @@ if (file_exists($autoloadPath1)) {
 
 use function DiffCalc\Diff\showHelp;
 use function DiffCalc\Diff\gendiff;
+use function DiffCalc\Parsers\parseYamlFile;
 
 $args = showHelp();
 
 print_r(gendiff($args['<firstFile>'], $args['<secondFile>']));
+
+dump(parseYamlFile('file2.yaml'));
+
